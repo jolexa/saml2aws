@@ -117,8 +117,11 @@ func assumeRoleWithProfile(targetProfile string, sessionDuration int) (*awsconfi
 }
 
 func checkToken(profile string) (bool, error) {
+	// Create session with more detailed options
+	// Shared config also loads in things like region
 	sess, err := session.NewSessionWithOptions(session.Options{
 		Profile: profile,
+		SharedConfigState: session.SharedConfigEnable,
 	})
 	if err != nil {
 		return false, err
